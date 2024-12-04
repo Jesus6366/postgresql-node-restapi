@@ -1,14 +1,27 @@
 import express from "express";
 import userRoutes from "./routes/users.routes.js";
-import { configDotenv } from "dotenv";
-import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+import sequelize from "./db.js";
 
-configDotenv();
+dotenv.config();
 
+const PORT = process.env.PORT || 5500;
+
+// creating an instance of express for the server
 const app = express();
 
 // middlewares
 app.use(express.json());
 app.use("/api", userRoutes);
 
-app.listen(5000, () => console.log(`server running on port 5000`));
+// Sync the database and start the server
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Database connected and synced!");
+  })
+  .catch((err) => {
+    console.error("Error syncing database:", err);
+  });
+
+app.listen(PORT, () => console.log(`server running on port ${PORT}`));
