@@ -1,5 +1,5 @@
 import express from "express";
-
+import { createUser } from "../controllers/users.controllers.js";
 const router = express.Router();
 
 // getting all users
@@ -14,9 +14,7 @@ router.get("/users/:id", (req, res) => {
 });
 
 // create a user
-router.post("/users", (req, res) => {
-  res.send("creating a users");
-});
+router.post("/users", createUser);
 
 // delete a user by id
 router.delete("/users/:id", (req, res) => {
