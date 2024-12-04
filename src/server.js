@@ -1,5 +1,9 @@
 import express from "express";
 import userRoutes from "./routes/users.routes.js";
+import { configDotenv } from "dotenv";
+import { Sequelize } from "sequelize";
+
+configDotenv();
 
 const app = express();
 
